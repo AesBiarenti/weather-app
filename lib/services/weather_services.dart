@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:weather_app/models/weather_model.dart';
 
 class WeatherService {
   final Dio dio = Dio();
-  final String apiKey =
-      'e82038bcacd2552327676c7c09f96292'; // OpenWeatherMap API key
+  final String apiKey = dotenv.env['API_KEY'] ?? ''; // .env'den alınıyor
 
   Future<Weather> getWeather(String city) async {
     try {

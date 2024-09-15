@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Iconlar için
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/providers/weather_provider.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Iconlar için
 
 class WeatherPage extends ConsumerStatefulWidget {
   const WeatherPage({super.key});
@@ -19,7 +19,8 @@ class _WeatherPageState extends ConsumerState<WeatherPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Weather App', style: TextStyle(fontFamily: 'Montserrat')),
+        title: const Text('Weather App',
+            style: TextStyle(fontFamily: 'Montserrat')),
         backgroundColor: Colors.deepPurple,
       ),
       body: Padding(
@@ -33,7 +34,7 @@ class _WeatherPageState extends ConsumerState<WeatherPage> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                suffixIcon: Icon(Icons.search, color: Colors.deepPurple),
+                suffixIcon: const Icon(Icons.search, color: Colors.deepPurple),
               ),
             ),
             const SizedBox(height: 16),
@@ -56,7 +57,10 @@ class _WeatherPageState extends ConsumerState<WeatherPage> {
                   ref.refresh(weatherProvider(city!));
                 }
               },
-              child: const Text('Hava Durumunu Getir'),
+              child: const Text(
+                'Hava Durumunu Getir',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             const SizedBox(height: 24),
             if (city != null)
@@ -65,9 +69,11 @@ class _WeatherPageState extends ConsumerState<WeatherPage> {
                   final weatherAsyncValue = ref.watch(weatherProvider(city!));
 
                   return weatherAsyncValue.when(
-                    data: (weather) => WeatherInfo(weather: weather), // Şık UI Kartında Gösterim
+                    data: (weather) => WeatherInfo(
+                        weather: weather), // Şık UI Kartında Gösterim
                     loading: () => const CircularProgressIndicator(),
-                    error: (error, stack) => const Text('Hata: Şehir Bulunamadı'),
+                    error: (error, stack) =>
+                        const Text('Hata: Şehir Bulunamadı'),
                   );
                 },
               ),
@@ -108,11 +114,13 @@ class WeatherInfo extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FaIcon(FontAwesomeIcons.temperatureHigh, size: 28, color: Colors.orange),
+                const FaIcon(FontAwesomeIcons.temperatureHigh,
+                    size: 28, color: Colors.orange),
                 const SizedBox(width: 10),
                 Text(
                   '${weather.temp}°C',
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -120,11 +128,13 @@ class WeatherInfo extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FaIcon(FontAwesomeIcons.wind, size: 28, color: Colors.lightBlue),
+                const FaIcon(FontAwesomeIcons.wind,
+                    size: 28, color: Colors.lightBlue),
                 const SizedBox(width: 10),
                 Text(
                   'Hissedilen: ${weather.feelsLike}°C',
-                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.w400),
                 ),
               ],
             ),
